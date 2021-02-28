@@ -9,6 +9,7 @@ export default class PersonController {
     try {
       const prisma = new PrismaClient();
       const persons = await prisma.persons.findMany();
+      await prisma.$disconnect();
       res.status(200).json(persons);
     } catch (err) {
       next(err);
