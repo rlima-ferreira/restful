@@ -19,6 +19,6 @@ app.use('/api/pais', routers.country);
 app.use('/api/endereco', routers.address);
 
 // Iniciando
-app.listen(3000);
+app.listen(process.env.NODE_ENV === 'development' && 3000);
 
 // BaseURL: http://localhost:3000/api/{path}
