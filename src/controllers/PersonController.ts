@@ -27,7 +27,7 @@ export default class PersonController {
       });
       res.status(200).json(person);
     } catch (err) {
-      return next(err.message);
+      return next(err);
     }
   }
 
