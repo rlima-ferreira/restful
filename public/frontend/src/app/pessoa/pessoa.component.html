@@ -1,0 +1,36 @@
+<mat-toolbar style="height: 90px;">
+  <div class="main-nav">
+    <span>Buscar Pessoa</span>
+    <mat-form-field   class="example-form-field">
+      <mat-label>CPF</mat-label>
+      <input matInput placeholder="12345678910" matTooltip="Preencher apenas com numeros" type="text" [(ngModel)]="cpf" id="cpfValidator" [formControl]="cpfValidator" required>
+      <button mat-button *ngIf="cpf" matSuffix mat-icon-button (click)="cpf=''">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="cpfValidator.invalid"> Informe seu CPF</mat-error>
+    </mat-form-field>
+  </div>
+  <button (click)="searchPerson()" style="margin-left: 30px;" mat-fab color="primary">
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="main-div">
+  <mat-card *ngIf="pessoa" class="example-card">
+    <mat-card-header>
+      <mat-card-title>Dados do usuário:</mat-card-title>
+      <mat-card-subtitle>{{pessoa.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="user-data">
+        <span>CPF: {{pessoa.cpf}}</span>
+        <span>Data de nascimento: {{pessoa.birthday}}</span>
+        <span>Rua: {{pessoa.address.public_place}}</span>
+        <span>Nº: {{pessoa.address.number}}</span>
+        <span>Complemento: {{pessoa.address.complement}}</span>
+        <span>Cidade: {{pessoa.address.city.name}} - {{pessoa.address.state.acronym}}</span>
+        <span>País: {{pessoa.address.country.name}}</span>
+        <span>CEP: {{pessoa.address.postcode}}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
