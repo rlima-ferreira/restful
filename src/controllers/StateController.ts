@@ -9,6 +9,7 @@ export default class StateController {
     try {
       const prisma = new PrismaClient();
       const countries = await prisma.states.findMany({ orderBy: { id: 'asc' } });
+      await prisma.$disconnect();
       res.status(200).json(countries);
     } catch (err) {
       next(err);
@@ -21,6 +22,7 @@ export default class StateController {
       const prisma = new PrismaClient();
       const { id } = req.params;
       const state = await prisma.states.findFirst({ where: { id: parseInt(id, 10) } });
+      await prisma.$disconnect();
       res.status(200).json(state);
     } catch (err) {
       return next(err);
@@ -34,6 +36,7 @@ export default class StateController {
       const keys = Object.getOwnPropertyNames(new State());
       const data:any = keys.reduce((acc, cur) => ({ ...acc, [cur]: req.body[cur] }) , {});
       await prisma.states.create({ data });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Estado registrado com sucesso' });
     } catch (err) {
       return next(err);
@@ -52,6 +55,7 @@ export default class StateController {
         where: { id: parseInt(req.params.id, 10) },
         data
       });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Estado atualizado com sucesso' });
     } catch (err) {
       return next(err);
@@ -63,6 +67,7 @@ export default class StateController {
     try {
       const prisma = new PrismaClient();
       await prisma.states.delete({ where: { id: parseInt(req.params.id, 10) } });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Estado removido com sucesso' });
     } catch (err) {
       return next(err);

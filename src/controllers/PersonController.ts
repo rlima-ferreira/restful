@@ -25,6 +25,7 @@ export default class PersonController {
         where: { cpf },
         include: { address: { include: { city: true, state: true, country: true } } }
       });
+      await prisma.$disconnect();
       res.status(200).json(person);
     } catch (err) {
       return next(err);
@@ -43,6 +44,7 @@ export default class PersonController {
           address_id: req.body.address
         }
       });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Pessoa registrada com sucesso' });
     } catch (err) {
       return next(err);
@@ -60,6 +62,7 @@ export default class PersonController {
         where: { id: parseInt(req.params.id, 10) },
         data
       });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Pessoa atualizada com sucesso' });
     } catch (err) {
       return next(err);
@@ -71,6 +74,7 @@ export default class PersonController {
     try {
       const prisma = new PrismaClient();
       await prisma.persons.delete({ where: { id: parseInt(req.params.id, 10) } });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Pessoa removida com sucesso' });
     } catch (err) {
       return next(err);

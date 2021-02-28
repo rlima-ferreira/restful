@@ -9,6 +9,7 @@ export default class CityController {
     try {
       const prisma = new PrismaClient();
       const cities = await prisma.cities.findMany({ orderBy: { id: 'asc' } });
+      await prisma.$disconnect();
       res.status(200).json(cities);
     } catch (err) {
       next(err);
@@ -21,6 +22,7 @@ export default class CityController {
       const prisma = new PrismaClient();
       const { id } = req.params;
       const city = await prisma.cities.findFirst({ where: { id: parseInt(id, 10) } });
+      await prisma.$disconnect();
       res.status(200).json(city);
     } catch (err) {
       return next(err);
@@ -34,6 +36,7 @@ export default class CityController {
       const keys = Object.getOwnPropertyNames(new City());
       const data:any = keys.reduce((acc, cur) => ({ ...acc, [cur]: req.body[cur] }) , {});
       await prisma.cities.create({ data });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Cidade registrada com sucesso' });
     } catch (err) {
       return next(err);
@@ -52,6 +55,7 @@ export default class CityController {
         where: { id: parseInt(req.params.id, 10) },
         data
       });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Cidade atualizada com sucesso' });
     } catch (err) {
       return next(err);

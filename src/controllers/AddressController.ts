@@ -12,6 +12,7 @@ export default class AddressController {
         orderBy: { id: 'asc' },
         include: { city: true, state: true, country: true }
       });
+      await prisma.$disconnect();
       res.status(200).json(addresses);
     } catch (err) {
       next(err);
@@ -27,6 +28,7 @@ export default class AddressController {
         where: { id: parseInt(id, 10) },
         include: { city: true, state: true, country: true }
       });
+      await prisma.$disconnect();
       res.status(200).json(address);
     } catch (err) {
       return next(err);
@@ -48,6 +50,7 @@ export default class AddressController {
           country_id: req.body.country,
         }
       });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Endereço registrado com sucesso' });
     } catch (err) {
       return next(err);
@@ -70,6 +73,7 @@ export default class AddressController {
         where: { id: parseInt(req.params.id, 10) },
         data
       });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Endereço atualizado com sucesso' });
     } catch (err) {
       return next(err);
@@ -81,6 +85,7 @@ export default class AddressController {
     try {
       const prisma = new PrismaClient();
       await prisma.addresses.delete({ where: { id: parseInt(req.params.id, 10) } });
+      await prisma.$disconnect();
       res.status(201).json({ 'message': 'Endereço removido com sucesso' });
     } catch (err) {
       return next(err);
