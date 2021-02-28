@@ -9,7 +9,9 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./pessoa.component.css']
 })
 export class PessoaComponent implements OnInit {
+  //INICIA A VARIÁVEL QUE SERÁ USADA PARA RECEBER O CPF INFORMADO NA TELA
   cpf = '';
+  //CRIA A VARIÁVEL QUE RECEBERA O OBJETO PESSOA DO SERVIDOR
   pessoa: any;
 
   cpfValidator = new FormControl('', [Validators.required]);
@@ -20,6 +22,7 @@ export class PessoaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //FAZ A BUSCA DE PESSOA BASEADA NO CPF INFORMADO NA TELA
   searchPerson() {
     if (this.cpfValidator.valid) {
       this.pessoaService.getPessoa(this.cpf).subscribe(pessoaResult => {
@@ -30,7 +33,7 @@ export class PessoaComponent implements OnInit {
           this._snackBar.open("Usuário não encontrado.", "Fechar", { duration: 2000, });
         }
       },
-        err => this._snackBar.open("Usuário não encontrado.", "Fechar", { duration: 2000, }))
+        () => this._snackBar.open("Usuário não encontrado.", "Fechar", { duration: 2000, }))
     }
   }
 

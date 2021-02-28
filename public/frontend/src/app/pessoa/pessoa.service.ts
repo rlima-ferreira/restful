@@ -11,7 +11,9 @@ export class PessoaService {
 
   constructor(private http: HttpClient) { }
 
+
+  //FAZ A REQUISITAÇÃO HTTP GET PARA RETORNAR OS DADOS DE UMA PESSOA COM O CPF ESPECIFICO, DO SERVIDOR.
   getPessoa(cpf: string): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}pessoa/${cpf}`);
+    return this.http.get<any>(`${this.API_URL}pessoas/${cpf}`);
   }
 }
