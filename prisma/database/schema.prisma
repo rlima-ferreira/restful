@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "database"
+}
+
+model cities {
+  id Int @id @default(autoincrement())
+  acronym String
+  name String
+}
+
+model countries {
+  id Int @id @default(autoincrement())
+  acronym String
+  name String
+}
+
+model states {
+  id Int @id @default(autoincrement())
+  acronym String
+  name String
+}
+
+model addresses {
+  id Int @id @default(autoincrement())
+  postcode String
+  public_place String
+  number Int
+  complement String?
+  city_id Int
+  state_id Int
+  country_id Int
+  city cities @relation(fields: [city_id], references: [id])
+  state states @relation(fields: [state_id], references: [id])
+  country countries @relation(fields: [country_id], references: [id])
+}
+
+model persons {
+  id Int @id @default(autoincrement())
+  name String
+  cpf String
+  birthday String
+  address_id Int
+  address addresses @relation(fields: [address_id], references: [id])
+}
