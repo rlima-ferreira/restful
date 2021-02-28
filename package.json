@@ -2,12 +2,12 @@
   "name": "restful",
   "version": "1.0.0",
   "description": "",
-  "main": "build/serve.js",
+  "main": "build/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "start": "node build/serve.js"
+    "start": "node build/server.js"
   },
   "author": "Renan Ferreira de Lima",
   "license": "ISC",

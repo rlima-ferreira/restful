@@ -9,6 +9,7 @@ const app = express();
 // Configuração
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use(express.static(__dirname + '/public'));
 
 // Rotas
 app.use('/api/pessoa', routers.person);
